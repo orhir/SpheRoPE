@@ -3,7 +3,7 @@
 
 # SpheRoPE: Zero-Shot Optimization-Free 360° Panorama Generation with Spherical RoPE [Paper TBD]
 
-A PyTorch implementation of a zero-shot, optimization-free method for
+A PyTorch implementation of our zero-shot, optimization-free method for
 generating seamless 360° equirectangular panoramas with pre-trained
 diffusion models, by rewiring their positional encoding and
 classifier-free guidance to respect spherical geometry.
@@ -12,7 +12,7 @@ classifier-free guidance to respect spherical geometry.
 
 SpheRoPE adapts stock text-to-image and text-to-video diffusion models
 to produce valid equirectangular panoramas *without* any fine-tuning or
-per-image optimization. The method plugs three lightweight modifications
+per-image optimization. The method plugs two lightweight modifications
 into the sampling loop:
 
 1. **SFC spherical RoPE** — replaces the width axis of the model's
@@ -21,8 +21,6 @@ into the sampling loop:
 2. **Semantic-distortion CFG** — a 3-way classifier-free-guidance in
    which a geometry-anchored prompt pulls denoising toward a valid ERP
    layout.
-3. **Circular encoding / decoding** — pads latents circularly along the
-   width axis so the ±180° seam is pixel-continuous.
 
 Together these give coherent, seam-free panoramas from pre-trained
 FLUX.1, FLUX.2, and LTX-2.3 with no extra training data and no
