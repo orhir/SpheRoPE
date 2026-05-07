@@ -1,25 +1,40 @@
-# SpheRoPE: Zero-Shot Optimization-Free 360° Panorama Generation with Spherical RoPE
+<a href="https://orhir.github.io/SpheRoPE/"><img src="https://img.shields.io/static/v1?label=Project&message=Website&color=blue"></a>
+<a href="https://arxiv.org/abs/XXXX.XXXXX"><img src="https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg"></a>
 
-Zero-shot 360° equirectangular (ERP) panorama generation on top of
-[🤗 diffusers](https://github.com/huggingface/diffusers) and
-[Lightricks' LTX-2.3](https://github.com/Lightricks/LTX-2).
+# SpheRoPE: Zero-Shot Optimization-Free 360° Panorama Generation with Spherical RoPE [Paper TBD]
 
-Supported models:
-| Model    | Type  | Resolution   | Pipeline                |
-|----------|-------|--------------|-------------------------|
-| FLUX.1-dev   | Image | 512×1024     | `ERPFluxPipeline`       |
-| FLUX.2-dev   | Image | 1024×2048    | `ERPFlux2Pipeline`      |
-| LTX-2.3      | Video | 1024×2048, 121f | `LTX23ERPPipeline`   |
+A PyTorch implementation of a zero-shot, optimization-free method for
+generating seamless 360° equirectangular panoramas with pre-trained
+diffusion models, by rewiring their positional encoding and
+classifier-free guidance to respect spherical geometry.
 
-All pipelines share the same three ERP components:
-1. **SFC spherical RoPE** — replaces the model's 2D positional encoding
-   with a spherical (sphere-aware) variant that respects the ERP
-   horizontal wrap.
+## Overview
+
+SpheRoPE adapts stock text-to-image and text-to-video diffusion models
+to produce valid equirectangular panoramas *without* any fine-tuning or
+per-image optimization. The method plugs three lightweight modifications
+into the sampling loop:
+
+1. **SFC spherical RoPE** — replaces the width axis of the model's
+   rotary positional encoding with a sphere-aware variant, so attention
+   respects the 360° horizontal wrap and pole convergence.
 2. **Semantic-distortion CFG** — a 3-way classifier-free-guidance in
-   which a geometry-anchored prompt nudges denoising toward a valid
-   ERP layout.
+   which a geometry-anchored prompt pulls denoising toward a valid ERP
+   layout.
 3. **Circular encoding / decoding** — pads latents circularly along the
-   width dimension so the seam at ±180° is seamless.
+   width axis so the ±180° seam is pixel-continuous.
+
+Together these give coherent, seam-free panoramas from pre-trained
+FLUX.1, FLUX.2, and LTX-2.3 with no extra training data and no
+optimization loop at inference.
+
+### Supported models
+
+| Model    | Type  | Resolution       | Pipeline              |
+|----------|-------|------------------|-----------------------|
+| FLUX.1-dev | Image | 512 × 1024       | `ERPFluxPipeline`     |
+| FLUX.2-dev | Image | 1024 × 2048      | `ERPFlux2Pipeline`    |
+| LTX-2.3    | Video | 1024 × 2048, 121 f | `LTX23ERPPipeline`  |
 
 
 ## Install
