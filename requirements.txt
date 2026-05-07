@@ -1,0 +1,29 @@
+# Core runtime dependencies
+#
+# We pin `transformers<5.0` because FLUX.2 loading fails on 5.x (Pixtral
+# processor became a lazy module placeholder that diffusers' pipeline loader
+# does not yet recognize).  Qwen3-VL also still works on 4.x.
+#
+# `torch` / `torchvision` are intentionally left unconstrained here.  We
+# recommend installing a specific CUDA build first with, e.g.:
+#
+#     pip install torch==2.5.1 torchvision==0.20.1 \
+#         --index-url https://download.pytorch.org/whl/cu124
+#
+# before running `pip install -r requirements.txt`, so pip picks your
+# driver-compatible CUDA build instead of the latest-but-incompatible one.
+# See the project README for details.
+
+diffusers>=0.37.1
+transformers>=4.45.0,<5.0
+accelerate>=0.30.0
+torch>=2.1.0
+torchvision>=0.16.0
+safetensors>=0.4.0
+sentencepiece
+protobuf
+Pillow
+numpy
+
+# Optional but recommended for ~2× speedup on FLUX
+# xformers
