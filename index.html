@@ -37,7 +37,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="static/fonts/fonts.css" rel="stylesheet">
-  <link rel="stylesheet" href="static/css/style.css?v=26">
+  <link rel="stylesheet" href="static/css/style.css?v=31">
   <!-- Math rendered inline as Unicode / HTML (no MathJax) to keep the page fast. -->
 </head>
 <body>
@@ -321,6 +321,28 @@
   </div>
 </section>
 
+<section id="BibTeX" class="alt-bg">
+  <div class="container">
+    <div class="bibtex-header">
+      <h2 class="title">BibTeX</h2>
+      <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
+        <svg viewBox="0 0 448 512" aria-hidden="true" focusable="false"><path fill="currentColor" d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 24 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"></path></svg>
+        <span class="copy-text">Copy</span>
+      </button>
+    </div>
+    <pre class="bibtex-box"><code id="bibtex-code">@article{SpheRoPE2026,
+  title={SpheRoPE: Zero-Shot Optimization-Free 360° Panorama Generation with Spherical RoPE},
+  author={Or Hirschorn and Aaron Olender and Eli Alshan and Ianir Ideses and Lior Fritz and Sagie Benaim},
+  year={TBD},
+  journal={TBD},
+  eprint={TBD},
+  archivePrefix={arXiv},
+  primaryClass={TBD},
+  url={TBD}
+}</code></pre>
+  </div>
+</section>
+
 <footer>
   <div class="container">
     Project page for &ldquo;SpheRoPE: Zero-Shot Optimization-Free 360&deg; Panorama Generation with Spherical RoPE&rdquo;.
@@ -341,6 +363,25 @@ function applyTheme(name) {
 function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme') || THEME_LIGHT;
   applyTheme(cur === THEME_DARK ? THEME_LIGHT : THEME_DARK);
+}
+
+async function copyBibTeX() {
+  const code = document.getElementById('bibtex-code');
+  if (!code) return;
+  const text = code.textContent.trim();
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (error) {
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.setAttribute('readonly', 'readonly');
+    textarea.style.position = 'absolute';
+    textarea.style.left = '-9999px';
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+  }
 }
 (function() {
   const saved = localStorage.getItem('theme');

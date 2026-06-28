@@ -79,7 +79,7 @@ a:hover { color: var(--accent-hover); }
 /* Smooth transitions on theme change */
 section, .method-block, .contrib-card, .table-wrap, .bibtex-box, .btn,
 .scene-select, .method-select, .nav-preset, .viewer-cell, .viewer-label,
-.copy-btn, .theme-toggle, thead, footer, .teaser-pano, .flat-cell, .formula-box {
+.copy-bibtex-btn, .theme-toggle, thead, footer, .teaser-pano, .flat-cell, .formula-box {
   transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -633,38 +633,75 @@ tbody tr:hover { background: var(--accent-subtle); }
 .arrow { font-size: 10px; color: var(--text-muted); }
 
 /* ─── BibTeX ─── */
+.bibtex-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.bibtex-header .title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.copy-bibtex-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 2px;
+  border: 1.5px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-body);
+  letter-spacing: 0.03em;
+}
+.copy-bibtex-btn svg {
+  width: 14px;
+  height: 14px;
+}
+.copy-bibtex-btn:hover { border-color: var(--accent); color: var(--accent); }
 .bibtex-box {
   background: var(--bg-alt);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px;
   position: relative;
-  max-width: 640px;
+  max-width: 760px;
   margin: 0 auto;
+  overflow-x: auto;
 }
-.bibtex-box pre {
+.bibtex-box pre,
+.bibtex-box code {
   font-family: var(--font-mono);
   font-size: 12.5px;
   color: var(--text-secondary);
   line-height: 1.7;
-  overflow-x: auto;
+  overflow-wrap: normal;
+  word-break: normal;
   white-space: pre;
 }
-.copy-btn {
-  position: absolute;
-  top: 14px; right: 14px;
-  padding: 4px 12px;
-  border-radius: 2px;
-  border: 1.5px solid var(--border);
-  background: var(--bg-card);
-  color: var(--text-muted);
-  font-size: 11px;
-  font-weight: 500;
-  cursor: pointer;
-  font-family: var(--font-body);
-  letter-spacing: 0.03em;
+.bibtex-box code {
+  display: block;
+  width: 100%;
+  min-width: 0;
 }
-.copy-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+@media (max-width: 768px) {
+  .bibtex-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bibtex-box {
+    padding: 20px;
+  }
+}
 
 /* ─── Footer ─── */
 footer {
@@ -678,11 +715,12 @@ footer {
 
 /* ─── Responsive ─── */
 @media (max-width: 768px) {
+  .container-wide { padding: 0 8px; }
   .method-grid { grid-template-columns: 1fr; }
   .viewer-grid { grid-template-columns: 1fr; }
-  .teaser-layout { grid-template-columns: 1fr; }
   .contributions { grid-template-columns: 1fr 1fr; }
   .teaser-scenes { grid-template-columns: 1fr; }
+  .viewer-cell { aspect-ratio: 16 / 9; }
   h1 { font-size: 1.8rem; }
   section { padding: 56px 0; }
   .theme-toggle { top: 12px; right: 12px; width: 34px; height: 34px; }
@@ -804,6 +842,30 @@ footer {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
+}
+
+@media (max-width: 768px) {
+  .teaser-layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "image"
+      "image-prompt"
+      "image-chips"
+      "video"
+      "video-prompt"
+      "video-chips";
+  }
+  #teaser-image { grid-area: image; }
+  #teaser-image-prompt { grid-area: image-prompt; }
+  #teaser-image-chips { grid-area: image-chips; }
+  #teaser-video { grid-area: video; }
+  #teaser-video-prompt { grid-area: video-prompt; }
+  #teaser-video-chips { grid-area: video-chips; }
+  .teaser-chips {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto;
+    grid-auto-rows: 30px;
+  }
 }
 
 
