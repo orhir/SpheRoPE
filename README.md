@@ -1,7 +1,7 @@
 <a href="https://orhir.github.io/SpheRoPE/"><img src="https://img.shields.io/static/v1?label=Project&message=Website&color=blue"></a>
-<a href="https://arxiv.org/abs/XXXX.XXXXX"><img src="https://img.shields.io/badge/arXiv-XXXX.XXXXX-b31b1b.svg"></a>
+<a href="https://arxiv.org/abs/2606.32033"><img src="https://img.shields.io/badge/arXiv-2606.32033-b31b1b.svg"></a>
 
-# SpheRoPE: Zero-Shot Optimization-Free 360° Panorama Generation with Spherical RoPE [Paper TBD]
+# SpheRoPE: Zero-Shot Optimization-Free 360° Panorama Generation with Spherical RoPE
 
 A PyTorch implementation of our zero-shot, optimization-free method for
 generating seamless 360° equirectangular panoramas with pre-trained
