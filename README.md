@@ -95,7 +95,7 @@ The FLUX pipelines only require `pip install -r requirements.txt`;
 
 ```bash
 python generate_panorama.py --model flux1 \
-    --prompt "sunlit forest clearing, wildflowers, dappled light" \
+    --prompt "A breathtaking outdoor tropical resort under a vivid blue sky, lush green volcanic hills rising from a turquoise lagoon, thatched-roof overwater villas arranged along winding pathways and sandy beaches, dense palm trees and crystal-clear waters revealing coral reefs beneath." \
     --output pano_flux1.png
 ```
 
@@ -103,7 +103,7 @@ python generate_panorama.py --model flux1 \
 
 ```bash
 python generate_panorama.py --model flux2 \
-    --prompt "a cozy library with leather armchairs and tall wooden bookshelves" \
+    --prompt "A hand-painted Ghibli-style seaside town at golden hour, pastel rooftops, cobblestone alleys winding down to a calm teal sea, and soft cumulus clouds above." \
     --output pano_flux2.png
 ```
 
@@ -111,7 +111,7 @@ python generate_panorama.py --model flux2 \
 
 ```bash
 python generate_panorama.py --model ltx23 \
-    --prompt "a cozy library with leather armchairs, gentle light flickering through the windows" \
+    --prompt "A low-angle view showcases towering cherry blossom trees in full bloom, their thick, textured trunks rising from the ground as branches heavy with pink flowers stretch skyward. Delicate petals drift down gently." \
     --output pano_ltx23.mp4 \
     --ltx23-checkpoint-dir ./ltx23_checkpoints \
     --num-frames 121
